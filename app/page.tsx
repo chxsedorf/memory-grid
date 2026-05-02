@@ -1337,8 +1337,10 @@ export default function Home() {
             <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-5 lg:flex-row lg:items-center">
               <div
                 className={[
-                  "mono-grid grid aspect-square w-full gap-[2px] p-2",
-                  phase === "memorize" ? "grid-light" : "grid-dark",
+                  "mono-grid grid aspect-square w-full p-2",
+                  phase === "memorize"
+                    ? "gap-[2px] grid-light"
+                    : "gap-0 grid-dark hidden-grid",
                 ].join(" ")}
                 style={{
                   gridTemplateColumns: `repeat(${currentStage.size}, minmax(0, 1fr))`,
@@ -1567,8 +1569,22 @@ export default function Home() {
         }
 
         .grid-dark {
-          background: #050505;
-          animation: gridBreathe 2.8s steps(4) infinite;
+          background: #020202;
+          animation: none;
+        }
+
+        .hidden-grid {
+          background: #020202 !important;
+          animation: none !important;
+          box-shadow:
+            8px 8px 0 rgba(255, 255, 255, 0.08),
+            0 0 70px rgba(0, 0, 0, 0.9);
+        }
+
+        .hidden-grid .mono-cell {
+          border: none !important;
+          background: #020202 !important;
+          box-shadow: none !important;
         }
 
         .mono-cell {
@@ -1585,25 +1601,14 @@ export default function Home() {
         }
 
         .cell-dark {
-          background:
-            linear-gradient(
-              45deg,
-              rgba(255, 255, 255, 0.03) 25%,
-              transparent 25%
-            ),
-            linear-gradient(
-              -45deg,
-              rgba(255, 255, 255, 0.02) 25%,
-              transparent 25%
-            ),
-            #0a0a0a;
+          background: #020202;
           color: #f5f5f5;
         }
 
         .hidden-cell {
           opacity: 1 !important;
-          background: #050505 !important;
-          border-color: #111 !important;
+          background: #020202 !important;
+          border: none !important;
           color: transparent !important;
           box-shadow: none !important;
         }
@@ -1615,10 +1620,19 @@ export default function Home() {
           color: transparent;
         }
 
+        .hidden-grid .wall-cell {
+          background: #020202 !important;
+          border: none !important;
+          box-shadow: none !important;
+          color: transparent !important;
+        }
+
         .player-cell {
+          background: #020202 !important;
+          border: none !important;
           box-shadow:
-            inset 0 0 0 2px rgba(255, 255, 255, 0.14),
-            0 0 28px rgba(255, 255, 255, 0.22);
+            inset 0 0 0 2px rgba(255, 255, 255, 0.18),
+            0 0 28px rgba(255, 255, 255, 0.24) !important;
         }
 
         .player-dot {
@@ -1661,16 +1675,6 @@ export default function Home() {
           z-index: 50;
           background: rgba(255, 255, 255, 0.18);
           animation: flashOut 0.15s steps(2) forwards;
-        }
-
-        @keyframes gridBreathe {
-          0%,
-          100% {
-            filter: brightness(1);
-          }
-          50% {
-            filter: brightness(0.78);
-          }
         }
 
         @keyframes playerIdle {
