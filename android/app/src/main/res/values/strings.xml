@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Memory Grid</string>
+    <string name="title_activity_main">Memory Grid</string>
+    <string name="package_name">com.chxsedorf.memorygrid</string>
+    <string name="custom_url_scheme">com.chxsedorf.memorygrid</string>
+</resources>
