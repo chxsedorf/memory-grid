@@ -734,41 +734,41 @@ export default function Home() {
   };
 
   const startBgm = () => {
-    const audio = bgmAudioRef.current;
+  const audio = bgmAudioRef.current;
 
-    if (!audio) return;
+  if (!audio) return;
 
-    audio.volume = 0.28;
-    audio.loop = true;
+  audio.volume = 0.28;
+  audio.loop = true;
 
-    audio.play().catch(() => {});
-  };
+  audio.play().catch(() => {});
+};
 
-  const stopBgm = () => {
-    const audio = bgmAudioRef.current;
+const stopBgm = () => {
+  const audio = bgmAudioRef.current;
 
-    if (!audio) return;
+  if (!audio) return;
 
-    audio.pause();
-  };
+  audio.pause();
+};
 
-  const toggleBgm = () => {
-    unlockAudio();
+const toggleBgm = () => {
+  unlockAudio();
 
-    setBgmEnabled((prev) => {
-      const next = !prev;
+  setBgmEnabled((prev) => {
+    const next = !prev;
 
-      if (next) {
-        startBgm();
-        playTone(520, 0.08, "square", 0.12);
-      } else {
-        playTone(180, 0.1, "sawtooth", 0.12);
-        stopBgm();
-      }
+    if (next) {
+      startBgm();
+      playTone(520, 0.08, "square", 0.12);
+    } else {
+      playTone(180, 0.1, "sawtooth", 0.12);
+      stopBgm();
+    }
 
-      return next;
-    });
-  };
+    return next;
+  });
+};
 
   const playMoveSound = () => {
     playTone(360, 0.06, "square", 0.13);
@@ -1121,6 +1121,41 @@ export default function Home() {
     if (index === playerPosition) return "player";
     return getTargetObject(index);
   };
+
+  useEffect(() => {
+  const stopBgmInBackground = () => {
+    const audio = bgmAudioRef.current;
+
+    if (!audio) return;
+
+    audio.pause();
+    setBgmEnabled(false);
+  };
+
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      stopBgmInBackground();
+    }
+  };
+
+  const handlePageHide = () => {
+    stopBgmInBackground();
+  };
+
+  const handleBlur = () => {
+    stopBgmInBackground();
+  };
+
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+  window.addEventListener("pagehide", handlePageHide);
+  window.addEventListener("blur", handleBlur);
+
+  return () => {
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+    window.removeEventListener("pagehide", handlePageHide);
+    window.removeEventListener("blur", handleBlur);
+  };
+}, []);
 
   const shouldShowCell = (index: number) => {
     if (phase === "memorize") return true;
