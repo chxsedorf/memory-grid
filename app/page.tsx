@@ -1514,6 +1514,17 @@ export default function Home() {
         )}
       </div>
 
+      <div className="fixed bottom-3 left-0 right-0 z-[9999] flex justify-center">
+        <a
+          href="https://memory-grid-privacy.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded border border-neutral-700 bg-neutral-950/90 px-3 py-1 font-mono text-[10px] font-bold tracking-[0.18em] text-neutral-400 shadow-[0_0_12px_rgba(0,0,0,0.8)] transition hover:border-neutral-400 hover:text-neutral-100"
+        >
+          PRIVACY POLICY
+        </a>
+      </div>
+
       <style jsx global>{`
         .scanline {
           background: repeating-linear-gradient(
